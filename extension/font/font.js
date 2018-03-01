@@ -1,7 +1,7 @@
-window.font = window.font || {};
+const font = {};
 
 // Meansure using canvas
-window.font.textByCanvas = function () {
+font.textByCanvas = function () {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   return function (fontname, text, fontsize) {
@@ -11,7 +11,7 @@ window.font.textByCanvas = function () {
 };
 
 // Meansure using <div>
-window.font.textByDom = function () {
+font.textByDom = function () {
   const container = document.createElement('div');
   container.setAttribute('style', 'all: initial !important');
   const content = document.createElement('div');
@@ -29,18 +29,18 @@ window.font.textByDom = function () {
   };
 };
 
-window.font.text = (function () {
+font.text = (function () {
   // https://bugzilla.mozilla.org/show_bug.cgi?id=561361
   if (/linux/i.test(navigator.platform)) {
-    return window.font.textByDom();
+    return font.textByDom();
   } else {
-    return window.font.textByCanvas();
+    return font.textByCanvas();
   }
 }());
 
-window.font.valid = (function () {
+font.valid = (function () {
   const cache = new Map();
-  const textWidth = window.font.text;
+  const textWidth = font.text;
   // Use following texts for checking
   const sampleText = [
     'The quick brown fox jumps over the lazy dog',
@@ -70,3 +70,5 @@ window.font.valid = (function () {
   };
   return validFont;
 }());
+
+export default font;

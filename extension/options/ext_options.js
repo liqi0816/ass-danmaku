@@ -2,7 +2,7 @@
  * @file Common works for reading / writing optinos
  */
 
-window.options = (function () {
+  import fontModule from '../font/font.js';
 
   const optionKey = 'options';
 
@@ -28,12 +28,14 @@ window.options = (function () {
    * @returns {string}
    */
   const predefFontFamily = () => {
-    const sc = ['Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC'];
+    // const sc = ['Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC'];
+    // replaced with bilibili defaults
+    const sc = ["SimHei", "'Microsoft JhengHei'", "SimSun", "NSimSun", "FangSong", "'Microsoft YaHei'", "'Microsoft Yahei UI Light'", "'Noto Sans CJK SC Bold'", "'Noto Sans CJK SC DemiLight'", "'Noto Sans CJK SC Regular'"];
     const tc = ['Microsoft JhengHei', 'PingFang TC', 'Noto Sans CJK TC'];
     const ja = ['MS PGothic', 'Hiragino Kaku Gothic Pro', 'Noto Sans CJK JP'];
-    const lang = browser.i18n.getUILanguage();
+    const lang = navigator.language;
     const fonts = /^ja/.test(lang) ? ja : /^zh(?!.*Hans).*(?:TW|HK|MO)/.test(lang) ? tc : sc;
-    const chosed = fonts.find(font => window.font.valid(font)) || fonts[0];
+    const chosed = fonts.find(font => fontModule.valid(font)) || fonts[0];
     return chosed;
   };
 
@@ -41,7 +43,7 @@ window.options = (function () {
     { name: 'resolutionX', type: 'number', min: 480, predef: 560 },
     { name: 'resolutionY', type: 'number', min: 360, predef: 420 },
     { name: 'bottomReserved', type: 'number', min: 0, predef: 60 },
-    { name: 'fontFamily', type: 'string', predef: predefFontFamily(), valid: font => window.font.valid(font) },
+    { name: 'fontFamily', type: 'string', predef: predefFontFamily(), valid: font => fontModule.valid(font) },
     { name: 'fontSize', type: 'number', min: 0, predef: 1, step: 0.01 },
     { name: 'textSpace', type: 'number', min: 0, predef: 0 },
     { name: 'rtlDuration', type: 'number', min: 0.1, predef: 8, step: 0.1 },
@@ -142,6 +144,7 @@ window.options = (function () {
     return proxied;
   };
 
-  return { get, bindDom };
+  const exp = { get, bindDom };
 
-}());
+  export default exp;
+  export { normalize };

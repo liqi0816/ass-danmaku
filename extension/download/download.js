@@ -1,6 +1,4 @@
-; (function () {
-
-  const download = window.download = window.download || {};
+  const download = {};
 
   /**
    * Convert file content to Blob which describe the file
@@ -64,4 +62,4 @@
 
   download.url = getObjectUrl;
 
-}());
+  export {convertToBlob};

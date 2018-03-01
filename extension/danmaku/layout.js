@@ -1,7 +1,5 @@
-; (function () {
-
-  const layout = (function () {
-
+    import font from '../font/font.js';
+    
     const rtlCanvas = function (options) {
       const {
         resolutionX: wc, // width of canvas
@@ -178,7 +176,7 @@
       return function (line) {
         line.fontSize = Math.round(line.size * options.fontSize);
         line.height = line.fontSize;
-        line.width = line.width || window.font.text(options.fontFamily, line.text, line.fontSize) || 1;
+        line.width = line.width || font.text(options.fontFamily, line.text, line.fontSize) || 1;
 
         if (line.mode === 'RTL') {
           const pos = normal.reduce((pos, layer) => pos || layer(line), null);
@@ -218,7 +216,7 @@
     };
 
     // main layout algorithm
-    const main = async function (danmaku, optionGetter) {
+    const layout = async function (danmaku, optionGetter) {
       const options = JSON.parse(JSON.stringify(optionGetter));
       const sorted = danmaku.slice(0).sort(({ time: x }, { time: y }) => x - y);
       const place = placeDanmaku(options);
@@ -235,10 +233,5 @@
       result.sort((x, y) => x.layout.start.time - y.layout.start.time);
       return result;
     };
-    return main;
-  }());
-
-  window.danmaku = window.danmaku || {};
-  window.danmaku.layout = layout;
-
-}());
+    
+    export default layout;

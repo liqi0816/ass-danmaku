@@ -1,6 +1,3 @@
-; (function () {
-
-  const parser = (function () {
     /**
      * @typedef DanmakuColor
      * @property {number} r
@@ -146,10 +143,4 @@
       return { thread, danmaku };
     };
 
-    return parser;
-  }());
-
-  window.danmaku = window.danmaku || {};
-  window.danmaku.parser = parser;
-
-}());
+    export default parser;
