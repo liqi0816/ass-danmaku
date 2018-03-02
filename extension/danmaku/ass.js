@@ -43,8 +43,8 @@
       '',
       '[V4+ Styles]',
       'Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding',
-      `Style: Fix,${info.fontFamily},${info.fontSize},&H${info.alpha}FFFFFF,&H${info.alpha}FFFFFF,&H${info.alpha}000000,&H${info.alpha}000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0`,
-      `Style: Rtl,${info.fontFamily},${info.fontSize},&H${info.alpha}FFFFFF,&H${info.alpha}FFFFFF,&H${info.alpha}000000,&H${info.alpha}000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0`,
+      `Style: Fix,${info.fontFamily},${info.fontSize},&H${info.alpha}FFFFFF,&H${info.alpha}FFFFFF,&H${info.alpha}000000,&H${info.alpha}000000,${info.bold},0,0,0,100,100,0,0,1,2,0,2,20,20,2,0`,
+      `Style: Rtl,${info.fontFamily},${info.fontSize},&H${info.alpha}FFFFFF,&H${info.alpha}FFFFFF,&H${info.alpha}000000,&H${info.alpha}000000,${info.bold},0,0,0,100,100,0,0,1,2,0,2,20,20,2,0`,
       '',
       '[Events]',
       'Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text',
@@ -109,6 +109,7 @@
         fontFamily: options.fontFamily,
         fontSize: getCommonFontSize(danmaku.layout),
         alpha: formatColorChannel(0xFF * (100 - options.textOpacity) / 100),
+        bold: options.bold? -1 : 0,
       };
       return [
         ...header(info),

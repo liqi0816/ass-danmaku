@@ -49,12 +49,14 @@ window.options = (function () {
     { name: 'maxDelay', type: 'number', min: 0, predef: 6, step: 0.1 },
     { name: 'textOpacity', type: 'number', min: 10, max: 100, predef: 60 },
     { name: 'maxOverlap', type: 'number', min: 1, max: 20, predef: 1 },
+    { name: 'bold', type: 'boolean', predef: true },
   ];
 
   const attrNormalize = (option, { name, type, min = -Infinity, max = Infinity, step = 1, predef, valid }) => {
     let value = option;
     if (type === 'number') value = +value;
     else if (type === 'string') value = '' + value;
+    else if (type === 'boolean') value = !!value;
     if (valid && !valid(value)) value = predef;
     if (type === 'number') {
       if (Number.isNaN(value)) value = predef;
